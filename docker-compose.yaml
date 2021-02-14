@@ -17,7 +17,7 @@ services:
 
   mysql:
       container_name: mysql-container
-      image: mysql:latest
+      image: library/mysql:latest
       ports:
       - "3306:3306"
       restart: always

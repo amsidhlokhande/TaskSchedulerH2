@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: taskschedulermysql
+  name: taskschedulermysql
+spec:
+  replicas: 1
+  minReadySeconds: 45
+  selector:
+    matchLabels:
+      io.kompose.service: taskschedulermysql
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: taskschedulermysql
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DATABASE
+          value: tododb
+        - name: MYSQL_HOST
+          value: mysql
+        - name: MYSQL_PASSWORD
+          value: root
+        - name: MYSQL_PORT
+          value: "3306"
+        - name: MYSQL_USERNAME
+          value: root
+        image: adithilokhande/taskschedulermysql:0.0.1-SNAPSHOT
+        imagePullPolicy: Always
+        name: taskschedulermysql
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always
+      serviceAccountName: ""
