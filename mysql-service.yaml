@@ -5,7 +5,7 @@ metadata:
     io.kompose.service: mysql
   name: mysql
 spec:
-  type: LoadBalancer
+  type: NodePort #This NodePort only allow access for internal service to mysql. For external access loadBalancer is used
   ports:
   - name: "3306"
     port: 3306
