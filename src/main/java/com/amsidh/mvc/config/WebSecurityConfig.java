@@ -57,7 +57,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private String[] getPermitAllUrls() {
+        System.out.println("environment :"+environment);
+        System.out.println("environment.getProperty(\"skip.spring.security.urls\") :"+environment.getProperty("skip.spring.security.urls"));
         String[] propertiesSkipped = environment.getProperty("skip.spring.security.urls", String[].class);
+        System.out.println("propertiesSkipped :"+propertiesSkipped);
+        System.out.println("propertiesSkipped "+ propertiesSkipped.length);
         Arrays.asList(Objects.requireNonNull(propertiesSkipped)).forEach(prop->System.out.print(prop + ", "));
         return propertiesSkipped;
     }

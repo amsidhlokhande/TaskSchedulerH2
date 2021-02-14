@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  taskschedulermysql:
+    container_name: taskschedulermysql
+    image: adithilokhande/taskschedulermysql:0.0.1-SNAPSHOT
+    ports:
+    - "8080:8080"
+    restart: always
+    depends_on:  # This start the dependent service first
+      - mysql
+    environment:
+      MYSQL_HOST: mysql-container
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: tododb
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: root
+
+  mysql:
+      container_name: mysql-container
+      image: mysql:latest
+      ports:
+      - "3306:3306"
+      restart: always
+      environment:
+        MYSQL_DATABASE: tododb
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_USER: admin
+        MYSQL_PASSWORD: admin
+      volumes:
+        - mysql-database-data-volume:/var/lib/mysql
+
+volumes:
+  mysql-database-data-volume:
+
+
+
