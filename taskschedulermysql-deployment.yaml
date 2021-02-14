@@ -23,15 +23,30 @@ spec:
       containers:
       - env:
         - name: MYSQL_DATABASE
-          value: tododb
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_DATABASE
+              name: taskschedulermysql-configmap
         - name: MYSQL_HOST
-          value: mysql
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_HOST
+              name: taskschedulermysql-configmap
         - name: MYSQL_PASSWORD
-          value: root
+          valueFrom:
+            secretKeyRef:
+              key: MYSQL_PASSWORD
+              name: taskschedulermysql-secret
         - name: MYSQL_PORT
-          value: "3306"
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_PORT
+              name: taskschedulermysql-configmap
         - name: MYSQL_USERNAME
-          value: root
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_USERNAME
+              name: taskschedulermysql-configmap
         image: adithilokhande/taskschedulermysql:0.0.1-SNAPSHOT
         imagePullPolicy: Always
         name: taskschedulermysql
